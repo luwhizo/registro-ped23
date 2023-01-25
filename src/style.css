@@ -1,0 +1,172 @@
+/* body{
+    background-color: rgb(48, 48, 48);
+    color: aqua;
+    font-size:200%;
+} */
+
+
+
+
+
+
+.box-shadow{
+    box-shadow: 0px 5px 5px rgba(0, 0, 0 , 0.2)
+}
+
+
+/* *******************  Tabla   ********************** */
+.tableCebra{
+/* border: solid 1px #ccc; */
+border-spacing: 0;  /* quita el espacio del borde que hay entre cada celda */
+
+font-family: sans-serif;
+min-width: 100%;
+
+}
+
+
+.tableCebra thead th{
+    background: #217346;
+    color: white;
+    
+    font-weight: normal;
+}
+
+/* ******* inicio : construir las rejilla********* */
+
+.tableCebra th, .tableCebra td{
+    border-right: 1px solid #ccc;
+     /* min-width: 200px;   */      /* quitar para responsive */ 
+    padding: 0em;
+    min-width: 100px;
+}
+.tableCebra th:last-child, .tableCebra td:last-child{
+    border-right: 0;
+}
+
+.tableCebra td{
+    border-bottom: 1px solid #ccc;
+}
+.tableCebra th{
+    border-bottom: 1px solid #ccc;
+}
+/* ****** fin : construir las rejilla********** */
+
+
+/* ************** inicio hover***************** */
+.tableCebra tr:hover{
+    background: rgb(254, 254, 192);
+  }
+
+.tableCebra tr:nth-child(2n):hover{
+    background: rgb(254, 254, 192);
+  }
+/* ************** fin hover***************** */
+
+.tableCebra tbody tr{
+    background: white;
+    
+}
+
+.tableCebra tbody tr:nth-child(2n){
+    background: #f2f2f2;
+    
+}
+
+.tableContainer{
+    max-width: 100%;
+    overflow-x: scroll;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+ 
+.tableCebra tbody tr.columnaSticky td:first-child{
+    background: white;
+}
+
+.tableCebra tbody tr:nth-child(2n).columnaSticky td:first-child{
+    background: #f2f2f2;
+}
+
+/* seleccionando las celdas sticky de la cabecera head*/
+.columnaSticky th:first-child {
+    position: sticky;
+    left: 0; 
+    min-width: 150px;  
+    
+} 
+
+/* seleccionando las celdas sticky del body*/
+.columnaSticky td:first-child {
+    position: sticky;
+    left: 0; 
+    min-width: 150px;  
+    box-shadow: 0px 5px 5px rgba(0, 0, 0 , 0.2)
+} 
+/* seleccionando los inputs sticky */
+.columnaSticky td:first-child input{
+    text-align: left;  
+    margin-left: 0em;
+} 
+
+
+
+
+
+/* *******************  LMS  ********************** */
+.tableCebra input{
+    text-align: center;
+    font-family:inherit;
+    
+    width:  100%;
+    padding: 0em;
+    border: none;   /* oculata el borde que esta visible permanete en el input */
+    /* outline: none; */ /* oculata el borde que se crea al editar en el input */
+    background: inherit;
+    line-height: 2.4em;   /* altura o interlineado de las celdas; */
+    font-size: 0.95rem;
+    
+    /* border: 2px solid red; */
+     
+    /* borderCollapse: "collapse" */
+} 
+
+.botonMas{
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+
+
+/* line-heigth: 2px    altura de la linea o interlineado */
+
+
+
+
+.excel-container-full{
+    /* background: red; */
+    width:  calc(100vw - 245px);
+    height: calc(100vh - 66px);
+    overflow:hidden;
+    
+
+}
+.excel-container-lite{
+    
+    width:  calc(100vw);
+    height: calc(100vh);
+    overflow:hidden;
+}
+
+/*     Caratula      Handsontable */
+td.custom-cell {
+  color: rgb(241, 18, 18);
+  font-weight: bold;
+  background-color: #ecf4cc;
+  font-size: large;
+  text-align: center;  /* alineacion horizontal */ 
+  vertical-align:middle;  /* alineacion vertical - centro */
+}
+td.fuente-mediano {
+    background-color: aqua;
+  }

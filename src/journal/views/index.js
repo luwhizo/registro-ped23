@@ -1,0 +1,16 @@
+export * from './NothingSelectedView';
+export * from './UsuariosView';
+// export * from './FiliacionView2';
+export * from './Evaluacion1View';
+export * from './Evaluacion2View';
+export * from './Evaluacion3View';
+export * from './EstadisticaView';
+export * from './DestacadosView';
+export * from './Central2View';
+export * from './Central1View';
+export * from './CaratulaView';
+export * from './FiliacionView';
+export * from './AvanceView';
+export * from './Asistencia1View';
+export * from './Asistencia2View';
+export * from './Asistencia3View';
