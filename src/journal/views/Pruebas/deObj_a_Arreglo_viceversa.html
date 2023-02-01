@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!-- <input type="text" id="1" onclick="test(1)">
+<input type="text" id="2" onclick="test(2)">
+<input type="text" id="3" onclick="test(3)">
+<input type="text" id="4" onclick="test(4)">
+<input type="text" id="5" onclick="test(5)">
+<input type="text" id="6" onclick="test(6)">
+<input type="text" id="7" onclick="test(7)">
+<input type="text" id="8" onclick="test(8)">
+<input type="text" id="9" onclick="test(9)">
+<input type="text" id="10" onclick="test(10)">
+<input type="text" id="11" onclick="test(11)">
+<input type="text" id="12" onclick="test(12)"> -->
+
+ 
+<script type="text/javascript">
+
+/* var s, p=1;
+
+function test(s) {
+d=document.getElementById(s);
+d.focus();
+p=s;
+}
+
+function next() {
+if (p < 12) {p++; test(p)}
+}
+
+function prev() {
+if (p > 1) {p--; test(p)}
+}
+
+function down() {
+if (p >1) {p++; test(p+5)}
+}
+
+document.onkeydown=function(e) {
+e = e || window.event;
+if (e.keyCode == 37) {prev()}
+if (e.keyCode == 39) {next()}
+if (e.keyCode == 40) {down()}
+return;
+}
+test(p);
+ */
+
+/* 
+ let arr=[['hola','asas','sss'],['qqq','xxx','zzz'],['mmm','rrr','fff']]
+console.log(arr[2][2]) 
+
+let arr=[{tt:'hola',uuu:'asas',dd:'sss'},{vv:'hola',asd:'asas',vfvf:'sss'},{eded:'hola',zxzx:'asas',bvb:'sss'}]
+console.log(arr)
+*/
+
+
+  data = [
+    { id: 1, name: 'Ted Right', address: '' },
+
+    { id: 2, name: 'Frank Honest', address: '' },
+    { id: 3, name: 'Joan Well', address: '' },
+    { id: 4, name: 'Gail Polite', address: '' },
+    { id: 5, name: 'Michael Fair', address: '' }
+  ];
+
+
+  data = [
+    
+    [1, 'Ted Right', ''],
+
+    [2, 'Frank Honest', ''],
+    [3, 'Joan Well', ''],
+    [4, 'Gail Polite', ''],
+    [5, 'Michael Fair', ''],
+  ];
+
+// ************ Objeto a Arreglo  *******************
+
+  let alumnosConCalificaciones = { "Luis": 100,	"Pedro": 90,};
+
+  let calificaciones = Object.values(alumnosConCalificaciones);
+console.log("Valores: ", calificaciones);
+/*Salida:
+Valores:  [ 100, 90 ]
+*/
+
+
+
+// Object.entries convierte tanto clave y valor. Cada
+// par es convertido a un arreglo. Al final tenemos un array de arrays
+let arregloDeClavesYValores = Object.entries(alumnosConCalificaciones);
+console.log("Claves y valores: ", arregloDeClavesYValores);
+/*
+Salida:
+Claves y valores:  
+        [   
+            [ 'Luis', 100 ],
+            [ 'Pedro', 90 ],
+        ]
+*/
+
+
+
+// ************ Arreglo a objeto *******************
+const entries = new Map( [  ['foo', 'bar'],  ['baz', 42] ]  );
+
+const obj = Object.fromEntries(entries);
+
+console.log(obj);
+// Expected output: Object { foo: "bar", baz: 42 }
+
+</script>
+</body>
+</html>

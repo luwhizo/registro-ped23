@@ -168,5 +168,6 @@ td.custom-cell {
   vertical-align:middle;  /* alineacion vertical - centro */
 }
 td.fuente-mediano {
-    background-color: aqua;
+    background-color: rgb(249, 252, 243);
+    font-size: larger;
   }

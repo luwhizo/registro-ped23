@@ -26,7 +26,7 @@ export const LoginPage = () => {
       dispatch(checkingAuthentication());
       
   }  
-    
+
   const onGoogleSignIn=()=>{
     dispatch(startGoogleSignIn())
   }

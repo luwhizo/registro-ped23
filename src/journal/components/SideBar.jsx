@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, FormControl, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Divider, Drawer, FormControl, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar, Typography } from "@mui/material";
 import {  TurnedInNot } from "@mui/icons-material";
 
 
@@ -9,24 +9,35 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
 
     const drawer = (
         <div>
-          <Toolbar sx={{backgroundColor:"primary.main"}}>
-            <FormControl sx={{ width:drawerWidth } }>   {/* width:`calc(${drawerWidth}px )` */}
-              <InputLabel id="demo-simple-select-label" >Curso</InputLabel>
-              {/* <Select
-              sx={{backgroundColor:"error.main"}}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                //value={age}
-                label="Age"
-                //onChange={handleChange}
-                
-              >
-                <MenuItem value={10}>1ro A</MenuItem>
-                <MenuItem value={20}>1ro B</MenuItem>
-                <MenuItem value={30}>5to A</MenuItem>
-              </Select> */}
-            </FormControl>
-          </Toolbar>
+        
+            <Toolbar sx={{backgroundColor:"primary.main", /* position: 'fixed'  */}} >
+              
+             {/*  <FormControl sx={{ width: drawerWidth } }>   
+                    <InputLabel 
+                        id="demo-simple-select-label" 
+                        sx={{fontSize:'32px'}}
+                        >  Curso
+                    </InputLabel>
+                <Select
+                  sx={{backgroundColor:"error.main", fontSize:'22px', textAlign:'center'}}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  //value={age}
+                  label="Age"
+                  //onChange={handleChange}
+                  
+                >
+                  <MenuItem value={10} sx={{fontSize:'22px'}}>1ro A</MenuItem>
+                  <MenuItem value={20}>1ro B</MenuItem>
+                  <MenuItem value={30}>5to A</MenuItem>
+                  <MenuItem value={10}>1ro A</MenuItem>
+                </Select>
+              </FormControl> */}
+
+            </Toolbar>
+            
+          
+
           <Divider />
 
           <List>
