@@ -3,9 +3,7 @@ import { setActiveCaratula, setCaratula, updateCaratula } from "./caratulaSlice"
 
 export const startCrearActualizarCaratula = (changes) =>{
     return async(dispatch, getState ) =>{
-     const {uid} = getState().auth;
-            
-        
+     const {uid} = getState().auth;  
 
       try {
           
@@ -21,9 +19,6 @@ export const startCrearActualizarCaratula = (changes) =>{
               //onsole.log(data[0].id_caratula)
               console.log(changes)
               console.log(data)
-              
-              
-              
               
 
               const newData = [{}];
@@ -83,13 +78,8 @@ export const startCrearActualizarCaratula = (changes) =>{
         console.log(error)
       
       }
-        
-        
-        //dispatch(setActiveCaratula(caratula)) // aqui es donde se da el bucle infinito
-        //dispatch(newcaratula)
     }
 } 
-
 
 export const startLoadingCaratula = () =>{  //cargando caratula de supabase al state de la app
   return async(dispatch, getState ) =>{
@@ -98,17 +88,18 @@ export const startLoadingCaratula = () =>{  //cargando caratula de supabase al s
     .from('caratulas')
     .select('distrito, nucleo,colegio,director,docente,nivel,area,gestion')
     .eq('id_prof', uid)    
-     console.log(data) // 
-    dispatch(setCaratula(data))
-    //const alumnos = Object.keys(data[0]);
-    //console.log("Claves: ", alumnos);
-    //console.log(alumnos[2]) // 
-    
+     console.log(data) //
+     const dataNuevo= [
+      {cabecera:'DISTRITO', distrito: data[0].distrito},
+      {cabecera:'DISTRITO', nucleo: data[0].nucleo},
+      {cabecera:'DISTRITO', colegio: data[0].colegio},
+      {cabecera:'DISTRITO', director: data[0].director},
+      {cabecera:'DISTRITO', docente: data[0].docente},
+      {cabecera:'DISTRITO', nivel: data[0].nivel},
+      {cabecera:'DISTRITO', area: data[0].area},
+      {cabecera:'DISTRITO', gestion: data[0].gestion},
+    ] 
+    console.log(dataNuevo) //
+    dispatch(setCaratula(data)) 
    }
 }
-
-/* export const startUpadateCaratula = () =>{
-  return async(dispatch, getState ) =>{  
-
-  }
-} */

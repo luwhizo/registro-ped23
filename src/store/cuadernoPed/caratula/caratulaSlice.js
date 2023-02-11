@@ -5,35 +5,40 @@ export const caratulaSlice = createSlice({
     initialState: {
 
         /* data:[
-            ['A1', 'B1', 'C1'],
+            ['dISTRITO', 'B1', 'C1'],
             ['A2', 'B2', 'C2'],
             ['A3', 'B3', 'C3'],
             ['A4', 'B4', 'C4'],
             ['A5', 'B5', 'C5'],
             ], */
 
-        data:[
-
-        {
-            distrito:'',
-            nucleo:'',
-            colegio:'',
-            director:'',
-            docente:'',
-            nivel:'',
-            area:'',
-            gestion:''
-        },
+        data:
+        [
+            {
+                distrito:'',
+                nucleo:'',
+                colegio:'',
+                director:'',
+                docente:'',
+                nivel:'',
+                area:'',
+                gestion:''
+            },
+            
         ],
+       
+        cargandoCaratulaDeSupabase: false,
+        setSaving: false,
+
         
-        className: 'fuente-mediano',
+        /* className: 'fuente-mediano',
         rowHeights: 40,
         stretchH:"all"  ,
         colHeaders: true,
         rowHeaders: true,
         colWidths: 100,
         manualColumnResize: true ,
-        licenseKey:"non-commercial-and-evaluation",
+        licenseKey:"non-commercial-and-evaluation", */
         
         
            
@@ -46,22 +51,22 @@ export const caratulaSlice = createSlice({
             
             const newData = [{...state.data[0]}];
            
-              action.payload.forEach(([row, column, oldValue, newValue]) => {
+            action.payload.forEach(([row, column, oldValue, newValue]) => {
                 newData[row][column] = newValue;  // se sobre escribe solo las celdas que se editaron de toda la matriz
                 })
-                state.data=newData
-                console.log(newData)
+            state.data=newData
+            console.log(newData)
 
             //state.data = [{...state.data[0], ...action.payload }] 
         },
+        setSaving: (state) => { // establecer guardado
+            
+        },
+        cargandoCaratulaDeSupabase: (state, action) => {
+            
+        },
         setActiveCaratula: (state, action) => {
             /* state.active = action.payload; */
-           
-        },
-        setSaving: (state) => {
-           
-        },
-        updateDatos: (state, action) => {
            
         },
         deleteDatosByID: (state, action) => {
@@ -71,4 +76,5 @@ export const caratulaSlice = createSlice({
 });
 //Los creadores de acciones se generan para cada función de reducer de casos.
 export const {  updateCaratula, setActiveCaratula,setCaratula,
-                setSaving,updateDatos,deleteDatosByID } = caratulaSlice.actions;
+                cargandoCaratulaDeSupabase,
+                setSaving,deleteDatosByID } = caratulaSlice.actions;

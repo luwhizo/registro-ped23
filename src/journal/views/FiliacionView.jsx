@@ -8,14 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { startCrearActualizarCaratula } from '../../store/cuadernoPed/caratula/thunks';
 import { updateCaratula } from '../../store/cuadernoPed/caratula/caratulaSlice';
 
-
-
-// register Handsontable's modules
 registerAllModules();
 
 export const FiliacionView = () => {
   const dispatch = useDispatch();
-const hotSettings = useSelector(state => state.caratula);
+const hotSettings = useSelector(state => state.caratula.data);
   const hotTableComponentRef = useRef(null);
 
   const onBeforeHotChange = changes => {
@@ -26,62 +23,35 @@ const hotSettings = useSelector(state => state.caratula);
   }
 
 
-  const [variable, setvariable] = useState(false) // false  // ancho de la pantalla de excel
+  const [variable, setvariable] = useState(true) // false  // ancho de la pantalla de excel
 
 
-
-/*   const { dato, error } = await supabase.from('countries').upsert(
-    { id: 1, name: 'Albania' })
-  .select()
- */
-
-
-  const agregar = async()=>{
-    /*  const result = await supabaseApp.from('caratulas')
-                    .upsert({ id_caratula: 3, distrito: 'Yacuiba' }).select() */
-              
-        try {
-              const {data} = await supabaseApp
-                      .from('caratulas')
-                      .select('id_caratula')
-              if(data.length>0){
-                console.log('hay al menos un registro')
-                console.log(data[0].id_caratula)
-              }else{
-                console.log('No hay registro')
-              }
-              
-        } catch (error) {
-          console.log(error)
-         
-        }
-    
-  }
-
-
-    
+ /*  const nuevo = [
+    { name: 'Ted Right', address: '' },
+    { name: 'Frank Honest', address: '' },
+    { name: 'Joan Well', address: '' },
+    { name: 'Gail Polite', address: '' },
+    { name: 'Michael Fair', address: '' }
+  ]; */
 
   return (
 
     <div
     className= {  variable ? 'excel-container-lite':'excel-container-full' }
-          >
-      <Button variant="contained" color="secondary" sx={{m:1}} 
-              onClick={ agregar } >
-        habilitar edición 
-      </Button>        
-              
-      <Button variant="contained" color="success" sx={{m:1}}>
-        Guardar cambios
-      </Button>
-
-       
+        > 
+        
+        {/* <HotTable
+                data={nuevo}
+                colHeaders={true}
+                height="auto"
+                width="auto"
+                minSpareRows={1}
+                licenseKey="non-commercial-and-evaluation"
+              /> */}
        <HotTable
               ref={hotTableComponentRef}
               beforeChange={onBeforeHotChange} // envia los datos de la celda (o celdas) que se modifico, datos como numero de fila, columna, viejo dato y nuevo dato
-              {...hotSettings} // aqui van todas las propiedades HotTable (todo el el state o initialstate)
-             
-              /*  
+              data = {hotSettings} // aqui van todas las propiedades HotTable (todo el el state o initialstate)     
               className= 'fuente-mediano'
               rowHeights={40}  
               stretchH="all"  
@@ -89,9 +59,13 @@ const hotSettings = useSelector(state => state.caratula);
               rowHeaders={true}
               colWidths={100}
               manualColumnResize={true}
-              licenseKey="non-commercial-and-evaluation" */
+              //minSpareRows={5}
+              licenseKey="non-commercial-and-evaluation"
           />
+
+         
       
     </div>
+    
   );
 };

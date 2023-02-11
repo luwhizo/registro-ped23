@@ -41,9 +41,9 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
           <Divider />
 
           <List>
-            {['Carátula', 'Filiación'].map((text, index) => (
+            {['Carátula','Cursos', 'Filiación'].map((text, index) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton>
+                <ListItemButton /* sx={{m:1}} */>
                   <ListItemIcon >
                     <TurnedInNot sx={{color:"secondary.main"}} /> 
                   </ListItemIcon>

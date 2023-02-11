@@ -3,7 +3,7 @@ import { registerAllModules } from 'handsontable/registry';
 import 'handsontable/dist/handsontable.full.min.css';
 import { useEffect, useState } from 'react'; 
 import { Button, Grid, Typography } from '@mui/material';
-import { supabaseApp } from '../../supabase/client';
+import { supabaseApp } from '../../../supabase/client';
 import { useSelector } from 'react-redux';
 
 

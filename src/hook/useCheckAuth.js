@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FirebaseAuth } from "../firebase/config";
 import { login, logout } from "../store/auth";
 import { startLoadingCaratula } from "../store/cuadernoPed/caratula/thunks";
+import { startLoadingCurso } from "../store/cuadernoPed/cursos";
 import { supabaseApp } from "../supabase/client";
 
 
@@ -26,7 +27,8 @@ export const useCheckAuth = () => {
         
         if(result.error===null){
           dispatch(login({uid, email, displayName})); //originalmente  esta linea de codigo estaba 6 lineas arriba antes de escribir codigo de supabase 
-          dispatch(startLoadingCaratula())  // Cargando la data del backen al  state
+          dispatch(startLoadingCaratula())  // Cargando la caratulas del backen al state (store) de la app
+          dispatch(startLoadingCurso())  // Cargando la caratulas del backen al state (store) de la app
         } 
         // *****************************************
       })
