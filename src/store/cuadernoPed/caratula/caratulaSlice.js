@@ -72,9 +72,15 @@ export const caratulaSlice = createSlice({
         deleteDatosByID: (state, action) => {
            
         },
+        clearCaratulaLogout: (state) => { // borrar todo de caratula al cerrar sesion
+            state.data=[],
+            state.cargandoCaratulaDeSupabase= false,
+            state.setSaving= false
+        },
+        
     }
 });
 //Los creadores de acciones se generan para cada función de reducer de casos.
 export const {  updateCaratula, setActiveCaratula,setCaratula,
-                cargandoCaratulaDeSupabase,
+                cargandoCaratulaDeSupabase,clearCaratulaLogout,
                 setSaving,deleteDatosByID } = caratulaSlice.actions;

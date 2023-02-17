@@ -1,6 +1,6 @@
 import {Link as RouterLink} from 'react-router-dom'
 import { Google, Facebook } from '@mui/icons-material'
-import {Grid, Typography, TextField, Button, Link} from '@mui/material'
+import {Grid, Typography, TextField, Button, Link, Alert} from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hook/useFrom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,9 +11,8 @@ import { useMemo } from 'react'
 
 export const LoginPage = () => {
 
-  const {status}=useSelector(state => state.auth)
+  const {status, errorMessage}=useSelector(state => state.auth)
   const isAuthenticating = useMemo(()=>status==='checking', [status])
-
   const dispatch=useDispatch();
 
   const {email, password, onInputChange }= useForm({
@@ -62,8 +61,8 @@ export const LoginPage = () => {
                   />
                 </Grid>
 
-                <Grid container spacing={2} sx={{mb:2, mt:1}}>
-                  
+                <Grid container spacing={2} sx={{mb:2, mt:1}}>                  
+
                   <Grid item xs={12} md={6} justifyContent='center'>
                     <Button 
                         disabled={isAuthenticating}
@@ -101,6 +100,14 @@ export const LoginPage = () => {
                       <Typography variant='inherit' color="white" sx={{ml:1}}> Facebook</Typography>
                     </Button>
                   </Grid>
+
+                  
+                  <Grid item xs={12} md={6} justifyContent='center'
+                        display={!!errorMessage?'':'none'}
+                        >
+                    <Alert severity='error'> {errorMessage} </Alert>
+                  </Grid>
+
 
                 </Grid>
                 <Grid container direction='row' justifyContent='end'>

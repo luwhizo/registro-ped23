@@ -26,7 +26,7 @@ const hotSettings = useSelector(state => state.caratula.data);
   const [variable, setvariable] = useState(true) // false  // ancho de la pantalla de excel
 
 
- /*  const nuevo = [
+  /* const nuevo = [
     { name: 'Ted Right', address: '' },
     { name: 'Frank Honest', address: '' },
     { name: 'Joan Well', address: '' },

@@ -3,31 +3,46 @@ import {Grid, Typography, TextField, Button, IconButton, Menu, MenuItem } from '
 import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
 import { useState } from 'react';
 import { useForm } from '../../hook/useFrom';
-import { setActiveCurso, startCrearCurso } from '../../store/cuadernoPed/cursos';
+import { setActiveCurso, startCrearCurso, startEliminandoCurso } from '../../store/cuadernoPed/cursos';
 import { useDispatch, useSelector } from 'react-redux';
 import { ModalActualizaCursoItem } from './modals/ModalActualizaCursoItem';
+import { ErrorPage } from '../../ui/componets/ErrorPage';
+import { CheckingCursos } from '../../ui/componets/CheckingCursos';
+
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 
 export const Cursos = () => {
 
-  
-  const { isSaving, cursos } =useSelector(state=>state.curso)
   const dispatch = useDispatch();
-    
-  const {nomCurso, onInputChange} = useForm({
+  const { isSaving, cursos, loadCursos, errorMessage } =useSelector(state=>state.curso)
+  const {nomCurso, onInputChange, onResetForm} = useForm({
     nomCurso:''
   })
 
-  
   const onSubmit=(event)=>{
     event.preventDefault();
-    dispatch( startCrearCurso(nomCurso));  
+    dispatch( startCrearCurso(nomCurso))
+    onResetForm()  // reseteando el valor del input. (ej. borrar 5to C)
+    if(!isSaving){   /// si se guardo correctamente entonces mostrar la alerta (falta)
+      Swal.fire({
+        //position: 'top-end',
+        icon: 'success',
+        title: 'Curso creado',
+        showConfirmButton: false,
+        timer: 1500
+      })  
+    } 
   }
-
-
   
-  
+  if(loadCursos===true){
+    return <CheckingCursos/> // cargando... cursos
+  }
+  if(errorMessage===true){
+    return <ErrorPage/> // cargando... cursos
+  }
   return (
     <Grid
     container 
@@ -35,10 +50,7 @@ export const Cursos = () => {
     alignItems="center"
     sx={{minHeight: "calc(100vh - 67px)", backgroundColor:"primary.main"}}
     >
-
-
-
-
+    
           <Grid // fondo azul oscuro de login
               container 
               spacing={0}
@@ -54,8 +66,6 @@ export const Cursos = () => {
                 >
                   <Typography variant="h6" sx={{mb:1}}>Crear Curso</Typography>
                   
-
-
                   <form onSubmit={onSubmit}>
                       <Grid container>
                           <Grid item xs={12} sx={{mt:2}}>
@@ -67,6 +77,7 @@ export const Cursos = () => {
                               name='nomCurso'
                               value={nomCurso}
                               onChange={onInputChange}
+                              required
                             />
                           </Grid>
 
@@ -126,6 +137,7 @@ export const Cursos = () => {
 
 const CursoItem = ({curso}) => {
 
+  const { isSaving } =useSelector(state=>state.curso)
   const [modal, setModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -133,45 +145,67 @@ const CursoItem = ({curso}) => {
 
   const onClicCurso=()=>{
     dispatch(setActiveCurso({id_curso, nombre_curso}))
+    Swal.fire({
+      //position: 'top-end',
+      icon: 'success',
+      title: nombre_curso+' Elegido',
+      text: 'Ya puede trabajar con el curso: '+nombre_curso,
+      showConfirmButton: false,
+      timer: 2300
+    })  
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     //console.log(event.currentTarget)
+    setModal(false)
     setAnchorEl(event.currentTarget);
     dispatch(setActiveCurso({id_curso, nombre_curso}))
-    console.log(anchorEl)
+    // console.log(anchorEl)
   };
 
-  const handleClose = () => { // no se esta ejecutando esta funcion!!!!!
+  const handleClose = () => { 
     setAnchorEl(null);
-    setModal(false)
-    console.log('handleClose')
+    //setModal(false)
   };
   
   const handleEditar = () => {
-    console.log('editarrrr')
     setAnchorEl(null);
-    setModal(true)
-    console.log(modal)
-
-    
-    
+    setModal(true)    
   };
+
   const handleEliminar = () => {
-     console.log('Eliminarrrr')
     setAnchorEl(null);
+    
+    Swal.fire({
+      title: '¿Seguro que desea eliminar el curso '+nombre_curso+' ?',
+      text: 'Eliminará todos los registros que estén relacionados al curso: '+nombre_curso,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Estoy seguro'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(startEliminandoCurso())
+        Swal.fire(
+          '¡Eliminado!',
+          'Ha eliminado al curso '+nombre_curso,
+          'success'
+        )
+      }
+    })   
+
+    
   };
 
- /*  if(modal){
-    return <ModalActualizaCursoItem  /> 
-  } */
+ 
 
   return(
     <>
         {
-          (modal)?<ModalActualizaCursoItem  />:null
+          (modal)?< ModalActualizaCursoItem  />:null
         }
         <Grid container
             className='box-shadow'
@@ -194,7 +228,7 @@ const CursoItem = ({curso}) => {
                           open={Boolean(anchorEl)}
                           onClose={handleClose}
                         >
-                          <MenuItem onClick={handleEditar}> editar </MenuItem>
+                          <MenuItem onClick={handleEditar}> Editar </MenuItem>
                           <MenuItem onClick={handleEliminar}>Eliminar</MenuItem>
                           
                         </Menu>
@@ -214,9 +248,9 @@ const CursoItem = ({curso}) => {
                   <Button onClick={onClicCurso} size="large" 
                           variant="contained" 
                           color="success"  
-                          fullWidth> Elegir </Button>
-
-            
+                          fullWidth
+                          disabled={isSaving}
+                          > Elegir curso </Button>     
         </Grid>
     </>
 

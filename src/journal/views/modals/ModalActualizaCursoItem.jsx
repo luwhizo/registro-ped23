@@ -6,6 +6,8 @@ import { useForm } from "../../../hook/useFrom";
 import { setActiveCurso } from "../../../store/cuadernoPed/cursos/cursosSlice";
 import { startSaveCurso } from "../../../store/cuadernoPed/cursos/thunks";
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 const style = {
@@ -40,6 +42,16 @@ const style = {
       event.preventDefault();
       dispatch(startSaveCurso())
       setOpen(false)
+
+      if(!isSaving){   /// si se guardo correctamente entonces mostrar la alerta (falta)
+        Swal.fire({
+          //position: 'top-end',
+          icon: 'success',
+          title: 'Actualizado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })  
+      } 
     }
 
     return (
@@ -62,12 +74,14 @@ const style = {
                               label='Escriba el nuevo nombre del curso'
                               type='text'
                               color="success"
-                              autoFocus
+                              focused
+                              autoFocus={true}
                               //placeholder='Ejemplo: 5to A'
                               fullWidth
                               name='nombre_curso'
                               value={nombre_curso}
                               onChange={onInputChange}
+                              required
                             />
                           </Grid>
 

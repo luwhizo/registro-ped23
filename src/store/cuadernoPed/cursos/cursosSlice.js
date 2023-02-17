@@ -4,9 +4,11 @@ export const cursosSlice = createSlice({
     initialState: {
         cursos:[],
         activeCurso:null,
-        //loadCursos:false, // caragar cursos de supabase
+        loadCursos:false, // caragar cursos de supabase
         creatingNewCurso:false,  // creando nuevo curso
-        isSaving: false   // esta guardando
+        isSaving: false,   // esta guardando un nuevo curso
+        //messageSaved:'',   // mensaje cuando la nota este actualizada
+        errorMessage:false
     },
     reducers: {
         savingNewCurso: (state ) => {       // guardando nuevo Curso
@@ -14,13 +16,18 @@ export const cursosSlice = createSlice({
         },
         addNewCurso: (state, action ) => {  // añadir nuevo curso
             state.cursos.push(action.payload);
-            state.isSaving = false; // hacer el dispatch para volverlo a false
+            state.isSaving = false; 
+            
         },
         setActiveCurso: (state, action ) => {  // activar un curso
             state.activeCurso=action.payload
         },
+        esperandoCursos: (state ) => {  // esperando la carga de cursos de supaBase
+            state.loadCursos=true
+        },
         setCursos: (state, action ) => {  // Cargar todos los cursos del backen
             state.cursos=action.payload;
+            state.loadCursos=false
         },
         setSaving: (state, action ) => {  // establecer guardado de actualizacion de 1 curso
             state.isSaving = true; // hacer el dispatch para volverlo a false
@@ -37,8 +44,21 @@ export const cursosSlice = createSlice({
            // TODO:  mostrar mensaje de actualizacion 
         },
         deleteCurso: (state, action ) => {  // eliminar un curso
-            state.counter += 1;
+            state.activeCurso=null;
+            // console.log(action)
+            state.cursos=state.cursos.filter(curso=>curso.id_curso!==action.payload);
+           
         },
+        setErrorMessage: (state ) => {  // establecer mensaje de error
+            state.errorMessage=true;
+        },
+        clearCursoLogout: (state) => { // borrar todo de cursos al cerrar sesion
+            state.cursos=[],
+            state.activeCurso=null,
+            state.creatingNewCurso=false, 
+            state.isSaving= false 
+        },
+        
     }
 });
 //Los creadores de acciones se generan para cada función de reducer de casos.
@@ -48,4 +68,7 @@ export const {  addNewCurso,
                 setSaving,
                 updateCurso,
                 deleteCurso,
-                savingNewCurso, } = cursosSlice.actions;   
+                savingNewCurso,
+                esperandoCursos,
+                setErrorMessage,
+                clearCursoLogout } = cursosSlice.actions;   
