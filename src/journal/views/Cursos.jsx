@@ -105,7 +105,7 @@ export const Cursos = () => {
 
     <Typography textAlign='center' variant='h6' 
                 color="White" sx={{mb:2, mt:3}}
-                >INGRESE AL CURSO:</Typography >
+                >ELIJA UN CURSO PARA ACTIVARLO:</Typography >
       
       <Grid
       container

@@ -1,9 +1,11 @@
-import { AppBar, Box, Divider, Drawer, FormControl, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Divider, Drawer, FormControl, InputLabel, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar, Typography } from "@mui/material";
 import {  TurnedInNot } from "@mui/icons-material";
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCurso } from "../../store/cuadernoPed/cursos";
-
+import {Link as RouterLink, NavLink} from 'react-router-dom'
 
 
 export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) => {
@@ -81,16 +83,43 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
           <Divider />
 
           <List>
-            {['Carátula','Cursos', 'Filiación'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton /* sx={{m:1}} */>
-                  <ListItemIcon >
-                    <TurnedInNot sx={{color:"secondary.main"}} /> 
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+
+                <Link component={RouterLink} color='inherit' to='/cursos'
+                      sx={{textDecorationLine:'none'}} >
+                 <ListItem disablePadding>   
+                  <ListItemButton /* sx={{m:1}} */>
+                    <ListItemIcon >
+                      <OtherHousesIcon sx={{color:"#primary.main"}} /> 
+                    </ListItemIcon>
+                    <ListItemText primary="Cursos" />
+                  </ListItemButton>
+                 </ListItem>
+                </Link>
+            
+                <Link component={NavLink} color='inherit'  to={(activeCurso!==null)?"/caratula":"/"} 
+                      sx={{textDecorationLine:'none'}}>
+                 <ListItem disablePadding>   
+                  <ListItemButton /* sx={{m:1}} */>
+                    <ListItemIcon >
+                      <ArrowCircleRightIcon sx={{color:"#primary.main"}} /> 
+                    </ListItemIcon>
+                    <ListItemText primary="Carátula"  />
+                  </ListItemButton>
+                 </ListItem>
+                </Link>               
+
+                <Link component={RouterLink} color='inherit' to={(activeCurso!==null)?"/filiacion":"/"} 
+                      sx={{textDecorationLine:'none'}}>
+                 <ListItem disablePadding>   
+                  <ListItemButton /* sx={{m:1}} */>
+                    <ListItemIcon >
+                      <ArrowCircleRightIcon sx={{color:"#primary.main"}} /> 
+                    </ListItemIcon>
+                    <ListItemText primary="Filiación" />
+                  </ListItemButton>
+                 </ListItem>
+                </Link>
+           
           </List>
 
           <Divider />

@@ -82,7 +82,7 @@ export const startEliminandoCurso = () =>{    // Eliminando un curso
     return async(dispatch, getState ) =>{ 
         const {activeCurso}  = getState().curso
         const {id_curso}=activeCurso
-
+        // Primero se debe eliminar las dependencias como a los estudiantes del curso, registros etc
         const { error } = await supabaseApp
                         .from('cursos')
                         .delete()

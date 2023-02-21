@@ -10,61 +10,60 @@ import { updateCaratula } from '../../store/cuadernoPed/caratula/caratulaSlice';
 
 registerAllModules();
 
-export const FiliacionView = () => {
+export const CaratulaView = () => { 
   const dispatch = useDispatch();
-const hotSettings = useSelector(state => state.filiacion.data);
+  const hotSettings = useSelector(state => state.caratula.data);
   const hotTableComponentRef = useRef(null);
 
-  const onBeforeHotChange = changes => {
-    console.log(changes)
-    /* dispatch(updateCaratula(changes)) // actualizando en state
-    dispatch(startCrearActualizarCaratula(changes)) /// esta en thunks */
+  /* const onBeforeHotChange = changes => { // changes = array de array = matriz = fila (o filas) de la celda (o celdas) que se modificaron
+    dispatch(updateCaratula(changes)) // actualizando en state
+    dispatch(startCrearActualizarCaratula(changes)) /// esta en thunks
     return false;
     
-  }
+  } */
 
 
-  const [variable, setvariable] = useState(false) // false o true  // ancho de la pantalla de excel
+  const [variable, setvariable] = useState(false) // false  // ancho de la pantalla de excel
 
 
-  /* const nuevo = [
+  const nuevo = [
     { name: 'Ted Right', address: '' },
     { name: 'Frank Honest', address: '' },
     { name: 'Joan Well', address: '' },
     { name: 'Gail Polite', address: '' },
     { name: 'Michael Fair', address: '' }
-  ]; */
+  ];
+  const [state, setstate] = useState(nuevo);
 
   return (
 
     <div
     className= {  variable ? 'excel-container-lite':'excel-container-full' }
         > 
-        
-        {/* <HotTable
-                data={nuevo}
+
+        <button onClick={()=>console.log(state)}> mostrar </button>
+        <HotTable
+                data={state}
                 colHeaders={true}
                 height="auto"
                 width="auto"
                 minSpareRows={1}
                 licenseKey="non-commercial-and-evaluation"
-              /> */}
-       <HotTable
+              />
+       {/* <HotTable
               ref={hotTableComponentRef}
-              beforeChange={onBeforeHotChange} // envia los datos de la celda (o celdas) que se modifico, datos como numero de fila, columna, viejo dato y nuevo dato
+              beforeChange={onBeforeHotChange} // envia los datos de la celda (o celdas) que se modificó, datos como numero de fila, columna, viejo dato y nuevo dato  (onBeforeHotChange=antesDelCambioCaliente)
               data = {hotSettings} // aqui van todas las propiedades HotTable (todo el el state o initialstate)     
               className= 'fuente-mediano'
-              rowHeights={40}  
-              stretchH="all"  
-              colHeaders={['PATERNO', 'MATERNO', 'NOMBRES', 'FECHA_NAC.', 'N° C.I.', 'N° RUDE', 'DIRECCIÓN', 'NOM. PPFF', 'CEL. PPFF']}
-              // colHeaders={true}
+              colHeaders={true}
               rowHeaders={true}
-              // colWidths={100}
-              colWidths={[100, 100]}
-              manualColumnResize={true}
+              stretchH="all"  
+              rowHeights={40}  // ancho minimo de filas
+              colWidths={90}// ancho minimo de columnas
+              // manualColumnResize={true} // cambio manuel del ancho de colum
               //minSpareRows={5}
               licenseKey="non-commercial-and-evaluation"
-          />
+          /> */}
 
          
       

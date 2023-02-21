@@ -6,7 +6,7 @@ export * from './EstadisticaView';
 export * from './DestacadosView';
 export * from './Central2View';
 export * from './Central1View';
-//export * from './CaratulaView';
+export * from './CaratulaView';
 export * from './FiliacionView';
 export * from './AvanceView';
 export * from './Asistencia1View';

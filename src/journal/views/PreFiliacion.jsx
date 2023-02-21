@@ -3,11 +3,21 @@ import { registerAllModules } from 'handsontable/registry';
 import 'handsontable/dist/handsontable.full.min.css';
 import { useState } from 'react'; 
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { startCrearFiliacion } from '../../store/cuadernoPed/filiacion/thunks';
 
 // register Handsontable's modules
 registerAllModules();
 
+
+
 export const PreFiliacion = () => {
+
+  const dispatch=useDispatch();
+  
+  const onCLicNewFiliacion=()=>{
+  dispatch(startCrearFiliacion())
+}
   
   const data1 = [
     [ 'PATERNO', 'MATERNO', 'NOMBRES', ],
@@ -17,7 +27,7 @@ export const PreFiliacion = () => {
     
   ];
   const data2 = [
-    [ 'PATERNO Y MATERNO', 'NOMBRES', ],
+    [ 'PATERNO, MATERNO', 'NOMBRES', ],
     [ 'Apaza Quispe', 'Mary Luz', ],
     [ 'Bolaños Choque', 'Rosa Pamela', ],
     [ 'Mamani Surco', 'Luis', ],
@@ -30,7 +40,7 @@ export const PreFiliacion = () => {
     [ 'Mamani Surco Luis', ],
     
   ];
-  const [estado, setestado] = useState(data1)
+
 
   return (
     <Grid
@@ -40,108 +50,120 @@ export const PreFiliacion = () => {
     sx={{minHeight: "calc(100vh - 67px)", backgroundColor:"primary.main"}}
     >
     
-    <Typography textAlign='center' variant='h5' color="White">Elija el modo en que desea registrar a sus estudiantes</Typography >
-      
+    <Typography textAlign='center' variant='h6' color="White">Elija la cantidad de columnas para registrar a sus estudiantes</Typography >
       <Grid
-      container
-      spacing={3}
-      direction="row"
+      container 
       justifyContent='center'
       alignItems="center"
-     
-      >
+      sx={{ backgroundColor:"primary.main"}}
+      > 
 
-        <Grid item >
+        <Grid container
+              className='box-shadow'
+              // direction='column' justifyContent='space-between'
+              sx={{width:{xs:320}/* , justifyItems:'center' */, backgroundColor:'white', padding:3, borderRadius:2, margin:3, height:'450px' }} //'#e6e6e6' plomo claro
+            >
 
-            <Card sx={{ width: 255,  height: 380 }}>
-                
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    3 columnas
-                  </Typography>
-                  <HotTable
-                                    data={data1}
-                                    startRows={5}
-                                    startCols={5}
-                                    height="160"
-                                    width="300"
-                                    colHeaders={true}
-                                    minSpareRows={1}
-                                    readOnly={true}
-                                    licenseKey="non-commercial-and-evaluation"
-                                  />
-                  <Typography variant="body2" color="text.secondary">
-                    La primera columna para el Apellido Paterno, la segunda columna para
-                    el Apellido Materno y la tercera columna para los Nombres
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant="contained" color="success"> Elegir </Button>
-                </CardActions>
-            </Card>
-        </Grid>
-
-        <Grid item>
-
-            <Card sx={{ width: 255,  height: 380 }}>
-                
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    2 columnas
-                  </Typography>
-                  <HotTable
-                                    data={data2}
-                                    startRows={5}
-                                    startCols={5}
-                                    height="160"
-                                    width="300"
-                                    colHeaders={true}
-                                    minSpareRows={1}
-                                    readOnly={true}
-                                    licenseKey="non-commercial-and-evaluation"
-                                  />
-                  <Typography variant="body2" color="text.secondary">
-                  La primera columna para los Apellidos Paterno y
-                  Materno, la segunda columna para los Nombres
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant="contained" color="success"> Elegir </Button>
-                </CardActions>
-            </Card>
-        </Grid>
-
-            
-        <Grid item  >
-
-            <Card sx={{ width: 255,  height: 380 }}>
-                
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    1 columna
-                  </Typography>
-                  <HotTable
-                                    data={data3}
-                                    startRows={5}
-                                    startCols={5}
-                                    height="160"
-                                    width="300"
-                                    colHeaders={true}
-                                    minSpareRows={1}
-                                    readOnly={true}
-                                    licenseKey="non-commercial-and-evaluation"
-                                  />
-                  <Typography variant="body2" color="text.secondary">
-                    En una primera y única columna para los apellidos Paterno, Materno y Nombres
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant="contained" color="success"> Elegir </Button>
-                </CardActions>
-            </Card>
-        </Grid>    
+                    <Typography gutterBottom variant="h6" component="div" sx={{textAlign:'center'}}>
+                      3 columnas
+                    </Typography>
+                    <HotTable
+                                      data={data1}
+                                      startRows={5}
+                                      startCols={5}
+                                      height="160"
+                                      width="300"
+                                      colHeaders={true}
+                                      rowHeaders={true}
+                                      minSpareRows={1}
+                                      readOnly={true}
+                                      licenseKey="non-commercial-and-evaluation"
+                                    />
+                    <Typography variant="body2" color="text.secondary">
+                      La primera columna para el apellido <b> paterno </b>, la segunda columna para
+                      el apellido <b> materno </b> y la tercera columna para los <b>nombres</b>
+                    </Typography>
       
-      </Grid>
-    </Grid>
+            
+                    <Button onClick={onCLicNewFiliacion}
+                            variant="contained" 
+                            color="success"  
+                            fullWidth
+                            sx={{mt:2,height:'45px'}} 
+                            > Elegir</Button>     
+        </Grid>
+
+        <Grid container
+              className='box-shadow'
+              // direction='column' justifyContent='space-between'
+              sx={{width:{xs:320}/* , justifyItems:'center' */, backgroundColor:'white', padding:3, borderRadius:3, margin:3, height:'450px' }} //'#e6e6e6' plomo claro
+            >
+
+                    <Typography gutterBottom variant="h6" component="div">
+                      2 columnas
+                    </Typography>
+                    <HotTable
+                                      data={data2}
+                                      startRows={5}
+                                      startCols={5}
+                                      height="160"
+                                      width="300"
+                                      colHeaders={true}
+                                      rowHeaders={true}
+                                      minSpareRows={1}
+                                      readOnly={true}
+                                      licenseKey="non-commercial-and-evaluation"
+                                    />
+                    <Typography variant="body2" color="text.secondary">
+                    La primera columna para los apellidos <b>paterno y materno</b>
+                    , la segunda columna para los <b>nombres</b>
+                    </Typography>
+      
+            
+                    <Button 
+                            variant="contained" 
+                            color="success"  
+                            fullWidth
+                            sx={{mt:2,height:'45px' }} 
+                            > Elegir</Button>     
+        </Grid>
+
+        <Grid container
+              className='box-shadow'
+              // direction='column' justifyContent='space-between'
+              sx={{width:{xs:320}/* , justifyItems:'center' */, backgroundColor:'white', padding:3, borderRadius:3, margin:3, height:'450px' }} //'#e6e6e6' plomo claro
+            >
+
+                    <Typography gutterBottom variant="h6" component="div">
+                      1 columna
+                    </Typography>
+                    <HotTable
+                                      data={data3}
+                                      startRows={5}
+                                      startCols={5}
+                                      height="160"
+                                      width="300"
+                                      colHeaders={true}
+                                      rowHeaders={true}
+                                      minSpareRows={1}
+                                      readOnly={true}
+                                      licenseKey="non-commercial-and-evaluation"
+                                    />
+                    <Typography variant="body2" color="text.secondary">
+                      La primera y única columna para los apellidos <b>paterno, materno y nombres</b>
+                    </Typography>
+      
+            
+                    <Button 
+                            variant="contained" 
+                            color="success"  
+                            fullWidth
+                            sx={{mt:2,height:'45px'}} 
+                            > Elegir</Button>     
+        </Grid>
+
+
+      </Grid> 
+  </Grid>
   );
 };

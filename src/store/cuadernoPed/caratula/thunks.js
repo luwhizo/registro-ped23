@@ -1,4 +1,4 @@
-import { supabaseApp } from "../../../supabase/client";
+import { supabaseApp } from "../../../supabase/client"; 
 import { setActiveCaratula, setCaratula, updateCaratula } from "./caratulaSlice";
 
 export const startCrearActualizarCaratula = (changes) =>{
@@ -35,13 +35,13 @@ export const startCrearActualizarCaratula = (changes) =>{
               
               const { error } = await supabaseApp
               .from('caratulas')
-              .update(newData)
+              .update(newData) // actualizacion masiva de datos (con Upsert data)
               .eq('id_caratula', data[0].id_caratula)
 
               if(error===null){
-                console.log("Seguardaron los cambios exitosamente") 
+                console.log("Seguardaron los cambios de actualizacion exitosamente") 
               }else{
-                console.error("ocurrio un error al guardar los cambios")
+                console.error("ocurrio un error al guardar los cambios de actualizacion")
               }
               
               //console.log(data[0].id_caratula)
