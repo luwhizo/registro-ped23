@@ -1,15 +1,18 @@
-import { AppBar, Box, Divider, Drawer, FormControl, InputLabel, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar, Typography } from "@mui/material";
-import {  TurnedInNot } from "@mui/icons-material";
+import { AppBar, Box, Divider, Drawer, FormControl, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, MenuItem, Select, Toolbar } from "@mui/material";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCurso } from "../../store/cuadernoPed/cursos";
-import {Link as RouterLink, NavLink} from 'react-router-dom'
+import {Link as RouterLink} from 'react-router-dom'
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { checkingMobileSize } from "../../store/auth/authSlice";
 
-
+// drawerWidth = 240 px
+// handleDrawerToggle = function para cambiar el valor de mobilOpen ::: setMobileOpen(!mobileOpen);
+// mobileOpen = true o false
 export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) => {
-  
+
   const {cursos,activeCurso}=useSelector(state=>state.curso)
   const dispatch =useDispatch()
   const [age, setAge] = useState(0);
@@ -33,7 +36,18 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
     
   };
 
+ //******* isMobile = esMovil ::: si la pantalla tiene un ancho de 600px (sm) o menos entonces esta en movil, si no entonces esta en modo escritorio  
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  useEffect(() => {
+    dispatch(checkingMobileSize(isMobile))
+  }, [isMobile]);
+// **********************************************************************************************
 
+const handleDrawerToggle2 =()=>{
+  if(isMobile){
+    handleDrawerToggle()
+  }
+}
 
     const drawer = (
         <div>
@@ -83,110 +97,48 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
           <Divider />
 
           <List>
-
                 <Link component={RouterLink} color='inherit' to='/cursos'
                       sx={{textDecorationLine:'none'}} >
-                 <ListItem disablePadding>   
+                 <ListItem disablePadding onClick={handleDrawerToggle2}>   
                   <ListItemButton /* sx={{m:1}} */>
                     <ListItemIcon >
                       <OtherHousesIcon sx={{color:"#primary.main"}} /> 
                     </ListItemIcon>
-                    <ListItemText primary="Cursos" />
+                    <ListItemText primary="Crear cursos" />
                   </ListItemButton>
                  </ListItem>
                 </Link>
-            
-                <Link component={NavLink} color='inherit'  to={(activeCurso!==null)?"/caratula":"/"} 
-                      sx={{textDecorationLine:'none'}}>
-                 <ListItem disablePadding>   
-                  <ListItemButton /* sx={{m:1}} */>
-                    <ListItemIcon >
-                      <ArrowCircleRightIcon sx={{color:"#primary.main"}} /> 
-                    </ListItemIcon>
-                    <ListItemText primary="Carátula"  />
-                  </ListItemButton>
-                 </ListItem>
-                </Link>               
 
-                <Link component={RouterLink} color='inherit' to={(activeCurso!==null)?"/filiacion":"/"} 
-                      sx={{textDecorationLine:'none'}}>
-                 <ListItem disablePadding>   
-                  <ListItemButton /* sx={{m:1}} */>
-                    <ListItemIcon >
-                      <ArrowCircleRightIcon sx={{color:"#primary.main"}} /> 
-                    </ListItemIcon>
-                    <ListItemText primary="Filiación" />
-                  </ListItemButton>
-                 </ListItem>
-                </Link>
-           
+                <LinkItems path="/caratula" titulo='Carátula' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+                <LinkItems path="/filiacion" titulo='Filiación' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
           </List>
 
           <Divider />
 
           <List>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                  <TurnedInNot sx={{color:"secondary.main"}} />
-                  </ListItemIcon>
-                  <ListItemText primary="Asistencia" />
-                </ListItemButton>
-              </ListItem>
-          </List>
-
-          <List>
-            {['1er. Trimestre', '2do. Trimestre', '3er. Trimestre'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <LinkItems path="/asistenciaconfig" titulo='Asistencia' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/asistencia" titulo='1° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/asistencia" titulo='2° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/asistencia" titulo='3° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
           </List>
 
           <Divider />
 
           <List>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <TurnedInNot sx={{color:"secondary.main"}} />
-                  </ListItemIcon>
-                  <ListItemText primary="Evaluación" />
-                </ListItemButton>
-              </ListItem>
-          </List>
-
-          <List>
-            {['1er. Trimestre', '2do. Trimestre', '3er. Trimestre'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <LinkItems path="/evaluacionconfig" titulo='Evaluación' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/evaluacion" titulo='1° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/evaluacion" titulo='2° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/evaluacion" titulo='3° Trimestre' icono={false} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
           </List>
 
           <Divider />
 
           <List>
-            {['Centralizador 1', 'Centralizador 2','Estadísticas','Avance','Destacados','Inf. de Usuario'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                  <TurnedInNot sx={{color:"secondary.main"}} />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <LinkItems path="/centralizador" titulo='Centralizador' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/estadistica" titulo='Estadísticas' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/avance" titulo='Avance' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+            <LinkItems path="/destacados" titulo='Destacados' icono={true} activeCurso={activeCurso} handleDrawerToggle={handleDrawerToggle} />
+
           </List>
 
           
@@ -229,5 +181,36 @@ export const SideBar = ({window, drawerWidth, handleDrawerToggle, mobileOpen }) 
           {drawer}
         </Drawer>
       </Box>
+  )
+}
+
+
+
+/////////////// COMPONENTE: ITEMS DEL MENU LATERAL ////////////////////////////////////////
+
+const LinkItems = ({path, titulo, activeCurso, handleDrawerToggle, icono}) => {
+
+  const {isMobile}=useSelector(state=>state.auth)
+
+  const handleDrawerToggle2 =()=>{
+    if(isMobile){
+      handleDrawerToggle()
+    }
+  }
+  
+  return (
+          <Link component={RouterLink} color='inherit'  to={(activeCurso!==null)?path:"/"} 
+                sx={{textDecorationLine:'none'}}>
+            <ListItem disablePadding onClick={handleDrawerToggle2}>   
+            <ListItemButton /* sx={{m:1}} */>
+              <ListItemIcon >
+                  {
+                    icono?<ArrowCircleRightIcon sx={{color:"#primary.main"}} />:null
+                  }
+              </ListItemIcon>
+              <ListItemText primary={titulo}  />
+            </ListItemButton>
+            </ListItem>
+          </Link>  
   )
 }

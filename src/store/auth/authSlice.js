@@ -7,6 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
     email: null,
     displayName: null,
     errorMessage:null,
+    isMobile: false
 }
 
 
@@ -31,9 +32,12 @@ export const authSlice = createSlice({
             },
             checkingCredentials:(state, payload)=>{
                 state.status='checking';
+            },
+            checkingMobileSize:(state, action)=>{  //comprobando tamaño movil 
+                state.isMobile=action.payload;
             }
         },
     
 });
 //Los creadores de acciones se generan para cada función de reducer de casos.
-export const { login, logout, checkingCredentials } = authSlice.actions;
+export const { login, logout, checkingCredentials, checkingMobileSize } = authSlice.actions;
